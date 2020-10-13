@@ -35,18 +35,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import datasource.WebappDataSource;
 import net.sf.jasperreports.engine.JRConstants;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRRuntimeException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.j2ee.servlets.BaseHttpServlet;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 
 
 /**
  * @author Teodor Danciu (teodord@users.sourceforge.net)
+ * 
  */
+
+
 public class FillServlet extends HttpServlet
 {
 	/**
@@ -54,6 +60,34 @@ public class FillServlet extends HttpServlet
 	 */
 	private static final long serialVersionUID = JRConstants.SERIAL_VERSION_UID;
 
+	protected Connection getPostgreSQLConn() throws JRException
+	{
+		Connection conn;
+	
+		try
+		{
+			//Change these settings according to your local configuration
+			String driver = "org.postgresql.Driver";
+			String connectString = "jdbc:postgresql://localhost:5432/jasper";
+			String user = "postgres";
+			String password = "1407vladi";
+	
+	
+			Class.forName(driver);
+			conn = DriverManager.getConnection(connectString, user, password);
+		}
+		catch (ClassNotFoundException e)
+		{
+			throw new JRException(e);
+		}
+		catch (SQLException e)
+		{
+			throw new JRException(e);
+			
+		}
+	
+		return conn;
+	}
 	
 	@Override
 	public void service(
@@ -68,7 +102,7 @@ public class FillServlet extends HttpServlet
 
 		try
 		{
-			String reportFileName = context.getRealPath("/reports/WebappReport.jasper");
+			String reportFileName = context.getRealPath("/reports/Cherry.jasper");
 			File reportFile = new File(reportFileName);
 			if (!reportFile.exists())
 				throw new JRRuntimeException("File WebappReport.jasper not found. The report design must be compiled first.");
@@ -80,8 +114,8 @@ public class FillServlet extends HttpServlet
 			JasperPrint jasperPrint = 
 				JasperFillManager.fillReport(
 					reportFileName, 
-					parameters, 
-					new WebappDataSource()
+					null, 
+					getPostgreSQLConn()
 					);
 						
 			request.getSession().setAttribute(BaseHttpServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);

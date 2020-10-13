@@ -17,6 +17,14 @@
 		<servlet-name>CompileServlet</servlet-name>
 		<servlet-class>servlets.CompileServlet</servlet-class>
 	</servlet>
+    <servlet>
+		<servlet-name>FillServlet</servlet-name>
+		<servlet-class>servlets.FillServlet</servlet-class>
+	</servlet>
+    <servlet>
+		<servlet-name>PdfServlet</servlet-name>
+		<servlet-class>net.sf.jasperreports.j2ee.servlets.PdfServlet</servlet-class>
+	</servlet>
 
     <servlet-mapping>
         <servlet-name>MyServlet</servlet-name>
@@ -26,6 +34,15 @@
 		<servlet-name>CompileServlet</servlet-name>
 		<url-pattern>/servlets/compile</url-pattern>
 	</servlet-mapping>
+    <servlet-mapping>
+		<servlet-name>FillServlet</servlet-name>
+		<url-pattern>/servlets/fill</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PdfServlet</servlet-name>
+		<url-pattern>/servlets/pdf</url-pattern>
+	</servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
