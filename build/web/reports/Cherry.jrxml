@@ -13,6 +13,7 @@
 			<style mode="Opaque" backcolor="#F0EFEF"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="BaseDir" class="java.io.File"/>
 	<queryString language="SQL">
 		<![CDATA[select * from  address]]>
 	</queryString>
@@ -35,10 +36,10 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="132" splitType="Stretch">
+		<band height="154" splitType="Stretch">
 			<image>
 				<reportElement x="456" y="0" width="99" height="132" uuid="97705585-a0b5-4ec7-86f3-ae10c220e6af"/>
-				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[new File($P{BaseDir}, "../images/cherry.jpg")]]></imageExpression>
 			</image>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="451" height="95" backcolor="#000000" uuid="6c6ca4e1-17cd-4913-93d6-5e670ea9ae8a"/>
