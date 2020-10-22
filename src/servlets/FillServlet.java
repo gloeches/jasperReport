@@ -108,7 +108,7 @@ public class FillServlet extends HttpServlet
 				throw new JRRuntimeException("File WebappReport.jasper not found. The report design must be compiled first.");
 
 			Map<String, Object> parameters = new HashMap<String, Object>();
-			parameters.put("ReportTitle", "Address Report");
+			parameters.put("ReportTitle", "Report de Chema");
 			parameters.put("BaseDir", reportFile.getParentFile());
 						
 			JasperPrint jasperPrint = 
